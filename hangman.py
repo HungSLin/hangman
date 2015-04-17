@@ -1,21 +1,21 @@
-import random
-
+import randomimport random
+ 
 HANGMAN=[
 #0
     """
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
        ───""",
 #1
     """
         ┌
-        │       
+        │      
         │      
         │      
         │      
@@ -28,12 +28,12 @@ HANGMAN=[
 #2
     """
         ┌───────
-        │       
         │      
         │      
         │      
         │      
-        │       
+        │      
+        │      
         │      
         │      
         │
@@ -46,7 +46,7 @@ HANGMAN=[
         │      
         │      
         │      
-        │       
+        │      
         │      
         │      
         │
@@ -59,7 +59,7 @@ HANGMAN=[
         │      │ │
         │      └┬┘
         │      
-        │   
+        │  
         │      
         │      
         │
@@ -72,7 +72,7 @@ HANGMAN=[
         │      │ │
         │      └┬┘
         │      ─┤
-        │       
+        │      
         │      
         │      
         │
@@ -85,7 +85,7 @@ HANGMAN=[
         │      │ │
         │      └┬┘
         │      ─┼─
-        │       
+        │      
         │      
         │      
         │
@@ -130,20 +130,20 @@ HANGMAN=[
         │
        ─┴─"""
 ]
-
-
+ 
+ 
 def random_word_func(answer,print_answer):
-    word=["apple"]
+    word=["apple","bear","cat","dog","egg","fish","graverty","hiphop","iceland","juice","kite","lion","mother","notification","over","person","queen","ray","star","tiger","umbrella","victory","wind","x-ray","yammy","zoo"]
     random_word = word[random.randint(0,len(word)-1)]
     for x in random_word:
         answer.append(x)
         print_answer.append("__")
     return (answer,print_answer)
-
+ 
 def player_guess():
     guess=input("Guess a letter!")
     return guess
-
+ 
 def guess_judge(guess,print_hangman):
     print_hangman +=1
     if (guess in answer):
@@ -160,7 +160,7 @@ def guess_judge(guess,print_hangman):
         print("Wrong answer!")
         used_letter.append(guess)
     return print_hangman
-
+ 
 def dis_hangman(print_hangman):
     print(HANGMAN[print_hangman])
     return
@@ -170,35 +170,33 @@ def dis_print_answer(print_answer):
         dis += i
         dis += " "
     return dis
-
+ 
 answer=[]
 print_answer=[]
 used_letter=[]
-
-
+ 
+ 
 def main():
+    input("Let's play HANGMAN,chances = 12")
+    print()
     print_hangman = 0
-    tries =0
     random_word_func(answer,print_answer)
-    while tries<=9:
-        guess = player_guess()
-        print_hangman = guess_judge(guess,print_hangman)
-        print ("Ans:"+dis_print_answer(print_answer))
-        dis_hangman(print_hangman)
-        print ("Used letter :"+ str(used_letter))
-        print ("turn " + str(tries))
-        tries += 1
-        print ()
+    for tries in range(0,12):
+        print()
         if print_answer == answer:
             print ("You win")
             break
+        elif print_hangman == 9:
+            print ("You lose")
+            break
+        guess = player_guess()
+        print_hangman = guess_judge(guess,print_hangman)
+        if tries == 11:
+            print_hangman = 9
+            print("You've run out of all the chances")
         else:
-            if tries == 9:
-                print("You ran out of turns")
-                break
-            else:
-                pass
-
+            print("chances = "+ str(11-tries))
+        dis_hangman(print_hangman)
+        print ("Ans:"+dis_print_answer(print_answer))
+        print ("Used letter :"+ str(used_letter))
 main()
-        
-
